@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Service.DataAccess;
 using Service.Interfaces;
 using Service.Models;
 using Service.ViewModels;

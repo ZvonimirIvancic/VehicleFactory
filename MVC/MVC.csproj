@@ -20,4 +20,9 @@
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\VehicleModel\" />
+    <Folder Include="Views\VehicleMake\" />
+  </ItemGroup>
+
 </Project>
