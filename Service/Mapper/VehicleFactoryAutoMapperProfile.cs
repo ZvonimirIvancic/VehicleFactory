@@ -14,9 +14,9 @@
             public VehicleFactoryAutoMapperProfile()
             {
 
-                CreateMap<VehicleMake, VehicleMakeViewModel>().ReverseMap();
+                CreateMap<VehicleMake, VMVehicleMake>().ReverseMap();
 
-                CreateMap<VehicleModel, VehicleModelViewModel>().ReverseMap();
+                CreateMap<VehicleModel, VMVehicleModel>().ReverseMap();
             }
         }
     }

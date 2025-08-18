@@ -1,16 +1,57 @@
-﻿@model dynamic
+﻿@model X.PagedList.IPagedList<Service.ViewModels.VMVehicleMake>
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @{
-    ViewData["Title"] = "Vehicle Factory - Welcome";
+    ViewData["Title"] = "Vehicle Makes";
+    string searchText = HttpContextAccessor.HttpContext.Request.Cookies["SearchText"];
+    var page = (int?)ViewData["page"];
+    var pages = (int?)ViewData["pages"];
 }
 
-<div class="container">
-    <div class="jumbotron">
-        <h1 class="display-4">Vehicle Factory</h1>
-        <p class="lead">
-            Make cars with these 2 easy extra steps.
-        </p>
-        <hr class="my-4">
-        <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Home" asp-action="Index" role="button">Make Vehicle</a>
-        <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Home" asp-action="Index" role="button">Make Model</a>
+<h1>Vehicle Maker</h1>
+<a asp-action="Create" class="btn btn-primary mb-3 mt-3">Create new Vehicle</a>
+
+<!-- Search -->
+<form method="get" class="mb-3">
+    <div class="row">
+        <div class="col-md-3">
+            <label for="searchValue">Search:</label>
+            <input id="searchValue" type="search" name="searchText" class="form-control" placeholder="Search by Make Name" value="@searchText" />
+        </div>
+        <div class="col-md-2 mt-4">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
     </div>
+</form>
+
+<!-- Make Cards -->
+<div class="row" id="make-cards-row">
+    @foreach (var make in Model)
+    {
+        <div class="col-md-3">
+            <div class="card mb-3 h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@make.Name</h5>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Index" asp-controller="VehicleModel" asp-route-makeId="@make.Id" class="btn btn-primary">Models</a>
+                    <a asp-action="Edit" asp-route-id="@make.Id" class="btn btn-secondary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@make.Id" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Pagination -->
+<div class="btn-group mt-2">
+    <div class="mt-2 mb-2">Page size: 4 -></div>
+    @for (var i = 1; i <= (pages ?? 0) + 1; i++)
+    {
+        var currClass = page == i ? "btn-primary" : "btn-outline-primary";
+        <a asp-action="Index"
+           asp-route-page="@i"
+           class="pager-btn btn @currClass">@(i)</a>
+    }
 </div>
