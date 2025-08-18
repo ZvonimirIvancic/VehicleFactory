@@ -2,11 +2,11 @@ use master
 
 go
 
-create database CarFactory
+create database VehicleFactory
 
 go
 
-use CarFactory
+use VehicleFactory
 
 go
 
