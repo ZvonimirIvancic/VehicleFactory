@@ -30,7 +30,7 @@ namespace MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(VehicleMakeViewModel model)
+        public async Task<IActionResult> Create(VMVehicleMake model)
         {
             if (!ModelState.IsValid) return View(model);
             await _service.CreateMakeAsync(model);
@@ -46,7 +46,7 @@ namespace MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(VehicleMakeViewModel model)
+        public async Task<IActionResult> Edit(VMVehicleMake model)
         {
             if (!ModelState.IsValid) return View(model);
             var ok = await _service.UpdateMakeAsync(model);

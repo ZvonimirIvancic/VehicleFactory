@@ -22,7 +22,7 @@ namespace Project.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<VehicleMakeViewModel>> GetAllMakesAsync(string? sort, string? search, int page, int pageSize)
+        public async Task<IEnumerable<VMVehicleMake>> GetAllMakesAsync(string? sort, string? search, int page, int pageSize)
         {
             var query = _context.VehicleMakes.AsQueryable();
 
@@ -40,17 +40,17 @@ namespace Project.Service.Services
             return await query
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .ProjectTo<VehicleMakeViewModel>(_mapper.ConfigurationProvider)
+                .ProjectTo<VMVehicleMake>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<VehicleMakeViewModel?> GetMakeByIdAsync(int id) =>
+        public async Task<VMVehicleMake?> GetMakeByIdAsync(int id) =>
             await _context.VehicleMakes
                 .Where(m => m.Id == id)
-                .ProjectTo<VehicleMakeViewModel>(_mapper.ConfigurationProvider)
+                .ProjectTo<VMVehicleMake>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
-        public async Task<int> CreateMakeAsync(VehicleMakeViewModel model)
+        public async Task<int> CreateMakeAsync(VMVehicleMake model)
         {
             var entity = _mapper.Map<VehicleMake>(model);
             _context.VehicleMakes.Add(entity);
@@ -58,7 +58,7 @@ namespace Project.Service.Services
             return entity.Id;
         }
 
-        public async Task<bool> UpdateMakeAsync(VehicleMakeViewModel model)
+        public async Task<bool> UpdateMakeAsync(VMVehicleMake model)
         {
             var entity = await _context.VehicleMakes.FindAsync(model.Id);
             if (entity == null) return false;
@@ -79,7 +79,7 @@ namespace Project.Service.Services
         }
 
 
-        public async Task<IEnumerable<VehicleModelViewModel>> GetAllModelsAsync(string? sort, string? search, int page, int pageSize, int? makeId)
+        public async Task<IEnumerable<VMVehicleModel>> GetAllModelsAsync(string? sort, string? search, int page, int pageSize, int? makeId)
         {
             var query = _context.VehicleModels.AsQueryable();
 
@@ -100,17 +100,17 @@ namespace Project.Service.Services
             return await query
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .ProjectTo<VehicleModelViewModel>(_mapper.ConfigurationProvider)
+                .ProjectTo<VMVehicleModel>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<VehicleModelViewModel?> GetModelByIdAsync(int id) =>
+        public async Task<VMVehicleModel?> GetModelByIdAsync(int id) =>
             await _context.VehicleModels
                 .Where(m => m.Id == id)
-                .ProjectTo<VehicleModelViewModel>(_mapper.ConfigurationProvider)
+                .ProjectTo<VMVehicleModel>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
-        public async Task<int> CreateModelAsync(VehicleModelViewModel model)
+        public async Task<int> CreateModelAsync(VMVehicleModel model)
         {
             var entity = _mapper.Map<VehicleModel>(model);
             _context.VehicleModels.Add(entity);
@@ -118,7 +118,7 @@ namespace Project.Service.Services
             return entity.Id;
         }
 
-        public async Task<bool> UpdateModelAsync(VehicleModelViewModel model)
+        public async Task<bool> UpdateModelAsync(VMVehicleModel model)
         {
             var entity = await _context.VehicleModels.FindAsync(model.Id);
             if (entity == null) return false;
